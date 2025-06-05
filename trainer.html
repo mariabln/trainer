@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔋BTRexpert </title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5faff;
+      color: #333;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      width: 100%;
+       margin-bottom: 4rem;
+    }
+
+    /* Banner */
+    .banner {
+      background-color: #eaeff6;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .left-logo, .right-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1 1 20%;
+    }
+
+    .left-logo img {
+      height: 180px;
+    }
+
+    .left-logo h3 {
+      font-size: 0.8rem;
+      color: #4d4d00;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .right-logo img {
+      height: 80px;
+    }
+
+    .banner-text {
+      flex: 1 1 60%;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .banner-text h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner-text h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    /* Sections */
+    section {
+        padding: 2rem 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #004080;
+    }
+
+    .section-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    section h4 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: #003366;
+    }
+
+    .question {
+        font-size: 0.95rem;
+        line-height: 1.4;
+        margin-bottom: 1rem;
+    }
+
+    .text {
+      flex: 1 1 55%;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .quiz section {
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+
+    footer {
+      background-color: #e3ebf9;
+      color: black;
+      text-align: center;
+      padding: 2rem;
+      width: 100%;
+    }
+
+    footer img {
+      height: 80px;
+      margin-top: 0.5rem;
+    }
+
+/* Initial navbar style */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #004080;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #004080;
+  font-weight: 500;
+  padding: 0.5rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #005fa3;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: none;
+  flex-direction: column;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-menu li a {
+  padding: 0.75rem 1rem;
+  color: #004080;
+  background:  #cce7ff;
+  width: 100%;
+  display: block;
+}
+
+.dropdown-menu li a:hover {
+  background: #e0f0ff;
+  color: #005fa3;
+}
+
+/* Hamburger Menu (Hidden on desktop) */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.menu-toggle .bar {
+  width: 30px;
+  height: 4px;
+  background-color: #004080;
+  border-radius: 2px;
+}
+
+    .quiz-block {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        text-align: center;
+    }
+
+    .quiz-block h4 {
+        font-size: 1.2rem;
+        color: #003366;
+        margin-bottom: 0.75rem;
+    }
+
+    .quiz-block .question {
+        font-size: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+
+    .options button {
+        width: 240px;
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+        border: 1px solid #005fa3;
+        border-radius: 8px;
+        background-color: #ffffff;
+        color: #004080;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .options button:hover {
+        background-color: #005fa3;
+        color: white;
+    }
+
+    .options button.selected {
+        background-color: #e0f0ff;
+        border-color: #cce7ff;
+    }
+
+    .feedback {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .correct { 
+        color: #1f7a1f; 
+    }
+
+    .wrong { 
+        color: #b30000; 
+    }
+
+    button:focus, a:focus {
+  outline: 3px solid #005fa3;
+  outline-offset: 2px;
+}
+
+
+    @media (max-width: 768px) {
+      .banner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .left-logo img, .right-logo img {
+        height: 70px;
+      }
+
+      .banner-text {
+        padding: 1rem 0;
+      }
+
+      .section-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .flip-card {
+        width: 90%;
+        height: 220px;
+      }
+            .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    padding-left: 0;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Adjust dropdown for mobile */
+  .dropdown-menu {
+    position: static;
+    display: none;
+    background-color: #fff;
+  }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-logo">🔋 BTRexpert</div>
+  <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="dropdown">
+      <a href="index.html#explorer"> Battery Type Explorer ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="Recycling Technology.html#lead-acid">Lead-acid</a></li>
+        <li><a href="Recycling Technology.html#li-ion">Lithium-ion</a></li>
+        <li><a href="Recycling Technology.html#ni-mh">Ni-based</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="index.html#other">Other Types of Batteries ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="other_types_of_batteries.html#other">Other Batteries</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="index.html#recycling">Recycling Technology ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="Pyrometallurgy.html#pyrometallurgy">Pyrometallurgy</a></li>
+        <li><a href="Pyrometallurgy.html#hydrometallurgy">Hydrometallurgy</a></li>
+        <li><a href="Pyrometallurgy.html#Mechanical Pre-Treatment">Mechanical Pre-Treatment</a></li>
+        <li><a href="Pyrometallurgy.html#combined">Combined Methos</a></li>
+        <li><a href="Pyrometallurgy.html#electrometallurgy">Electrometallurgy Process</a></li>
+      </ul>
+    </li>
+    <li><a href="trainer.html#trainer">Trainer</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <!-- Banner -->
+  <section class="banner">
+    <div class="left-logo">
+      <img src="logo_1.png" alt="Left Logo" />
+      <h3>2024-1-PL01-KA220-HED-000249112</h3>
+    </div>
+    <div class="banner-text">
+      <h1>BTRexpert</h1>
+      <h2>Advanced Higher Education for Battery Lifecycle and Sustainability Consortium</h2>
+    </div>
+    <div class="right-logo">
+      <img src="EU-Logo.png" alt="Erasmus+" />
+    </div>
+  </section>
+
+
+<div class="quiz-block">
+    <section>
+        <h4>Off-Grid Solar Energy Storage</h4>
+        <div class="question">You need a battery for storing solar energy in an off-grid house. The system must tolerate partial charging, 
+            offer long cycle life, and work well in variable weather.</div>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, '❌ LCO – Too expensive, low thermal stability, and not suitable for deep cycling.', 'feedback1')">Lithium Cobalt Oxide (LCO)</button>
+                    <button onclick="checkAnswer(this, true, '✔️ Correct!LiFePO₄ batteries offer excellent safety, long cycle life, and tolerate partial state of charge—ideal for renewable energy systems.', 'feedback1')">Lithium Iron Phosphate (LiFePO₄)</button>
+                    <button onclick="checkAnswer(this, false, '❌ NiCd – Durable but environmentally hazardous and less efficient.', 'feedback1')">Nickel-Cadmium (NiCd)</button>
+                    <button onclick="checkAnswer(this, false, '❌ Alkaline – Non-rechargeable, unsuitable for long-term energy storage.', 'feedback1')">Alkaline Battery</button>
+                </div>
+            <div id="feedback1" class="feedback" role="alert"></div>
+    </section>
+</div>
+
+<div class="quiz-block">
+    <section>
+        <h4>Lightweight Drone Power System</h4>
+            <div class="question">You are designing a compact, lightweight battery system for a commercial drone that must fly for extended periods.</div>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, '❌ NiMH – Too bulky and heavy for aerial use.', 'feedback2')">Nickel-Metal Hydride (NiMH)</button>
+                    <button onclick="checkAnswer(this, true, '✔️ Correct! LCO batteries have high energy density, making them ideal for lightweight applications like drones.', 'feedback2')">Lithium Cobalt Oxide (LCO)</button>
+                    <button onclick="checkAnswer(this, false, '❌ AGM – Heavy, low energy density.', 'feedback2')">Lead-Acid</button>
+                    <button onclick="checkAnswer(this, false, '❌ NaS – High-temperature, grid-scale technology, unsuitable for small devices.', 'feedback2')">Sodium-Sulfur (NaS)</button>
+                </div>
+            <div id="feedback2" class="feedback" role="alert"></div>
+    </section>
+</div>
+
+<div class="quiz-block">
+    <section>
+        <h4>Hybrid Vehicle Battery</h4>
+            <div class="question">You are designing a battery for a hybrid car that needs good energy storage, moderate weight, and strong performance over time.</div>
+                <div class="options">
+                    <button onclick="checkAnswer(this, true, '✔️ Correct! NiMH batteries are widely used in hybrid vehicles due to their reliability, safety, and reasonable energy density.', 'feedback3')">Nickel-Metal Hydride (NiMH)</button>
+                    <button onclick="checkAnswer(this, false, '❌ Lead-Acid – Too heavy and not efficient for deep cycling.', 'feedback3')">Lead-Acid</button>
+                    <button onclick="checkAnswer(this, false, '❌ Zinc-Air – Non-rechargeable and not powerful enough.', 'feedback3')">Zinc-Air</button>
+                    <button onclick="checkAnswer(this, false, '❌ LTO – Excellent cycle life, but lower energy density and expensive for typical hybrid cars.', 'feedback3')">Lithium Titanate (LTO)</button>
+                </div>
+            <div id="feedback3" class="feedback" role="alert"></div>
+    </section>
+</div>
+
+<div class="quiz-block">
+    <section>
+        <h4>Space-Constrained Medical Device</h4>
+            <div class="question">You're designing a medical monitoring device that requires a small, high-performance battery with excellent reliability and long shelf life.</div>
+                <div class="options">
+                <button onclick="checkAnswer(this, true, '✔️ Correct! Silver-zinc batteries offer high energy density, reliability, and are often used in medical and aerospace applications.', 'feedback4')">Silver-Zinc</button>
+                <button onclick="checkAnswer(this, false, '❌ Alkaline – Non-rechargeable, not ideal for life-critical devices.', 'feedback4')">Alkaline</button>
+                <button onclick="checkAnswer(this, false, '❌ NiCd – Heavy and toxic; unsuitable for compact, sensitive equipment.','feedback4')">Nickel-Cadmium</button>
+                <button onclick="checkAnswer(this, false, '❌ LiFePO₄ – Very safe but larger and heavier compared to silver-zinc.', 'feedback4')">Lithium Iron Phosphate (LiFePO₄)</button>
+            </div>
+        <div id="feedback4" class="feedback" role="alert"></div>
+    </section>
+</div>
+
+<div class="quiz-block">
+    <section>
+        <h4>Portable Medical Diagnostic Device</h4>
+            <div class="question">You are developing a handheld diagnostic tool for field hospitals that must be lightweight, long-lasting, and rechargeable.</div>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, '❌ NiCd – Too heavy and environmentally dangerous.', 'feedback5')">Nickel-Cadmium (NiCd)</button>
+                    <button onclick="checkAnswer(this, false, '❌ Zinc-Air – Primary (non-rechargeable) battery, not suitable for reusable devices.', 'feedback5')">Zinc-Air</button>
+                    <button onclick="checkAnswer(this, true, '✔️ Correct! NCA batteries provide high energy density and long operational life in a compact form—perfect for portable medical equipment.', 'feedback5')">Lithium Nickel Cobalt Aluminum Oxide (NCA)</button>
+                    <button onclick="checkAnswer(this, false, '❌ Lead-Carbon – Great for stationary energy storage, but bulky and heavy for portable devices.', 'feedback5')">Lead-Carbon Battery</button>
+                </div>
+            <div id="feedback5" class="feedback" role="alert"></div>
+    </section>
+</div>
+
+<div class="quiz-block">
+    <section>
+        <h4>Backup Power for a Home Solar System</h4>
+            <div class="question">You're designing a home solar power system that must store energy for nighttime use and offer high efficiency, long life, and low maintenance.</div>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, '❌ Flooded Lead-Acid – Works, but requires regular maintenance and has shorter cycle life.', 'feedback6')">Lead-Acid (Flooded)</button>
+                    <button onclick="checkAnswer(this, true, '✔️ Correct! LiFePO₄ batteries are ideal for solar storage thanks to their high efficiency, excellent cycle life, and safety.', 'feedback6')">Lithium Iron Phosphate (LiFePO₄)</button>
+                    <button onclick="checkAnswer(this, false, '❌ Alkaline – Not rechargeable, unsuitable for solar systems.', 'feedback6')">Alkaline</button>
+                    <button onclick="checkAnswer(this, false, '❌ NiMH – Rechargeable but lower efficiency and energy density than lithium-based batteries.','feedback6')">Nickel-Metal Hydride (NiMH)</button>
+                </div>
+            <div id="feedback6" class="feedback" role="alert"></div>
+    </section>
+</div>
+
+<div class="quiz-block">
+    <section>
+        <h4>Grid-Scale Energy Storage in a Cold Climate</h4>
+            <div class="question">You’re tasked with selecting batteries for a renewable energy installation in a remote, cold region. The batteries must function in low temperatures and provide high cycle life and reliability.</div>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, '❌ LCO – Not suitable for low-temperature or large-scale storage; also expensive.', 'feedback7')">Lithium Cobalt Oxide (LCO)</button>
+                    <button onclick="checkAnswer(this, false, '❌ LiFePO₄ – Safer, but performance degrades sharply in freezing temperatures unless heated.', 'feedback7')">Lithium Iron Phosphate (LiFePO₄)</button>
+                    <button onclick="checkAnswer(this, false, '❌ NiMH – Better than lithium in the cold, but lower efficiency and limited scalability for grid applications.', 'feedback7')">Nickel-Metal Hydride (NiMH)</button>
+                    <button onclick="checkAnswer(this, true, '✔️ Correct! Lead-carbon batteries tolerate partial-state-of-charge, cold weather, and provide good cycle life—ideal for remote renewables.', 'feedback7')">Lead-Carbon</button>
+                </div>
+            <div id="feedback7" class="feedback" role="alert"></div>
+    </section>
+</div>
+
+<div class="quiz-block">
+    <section>
+        <h4>Portable Device with Frequent Power Bursts</h4>
+            <div class="question">You're developing an industrial-grade handheld tool that requires frequent bursts of high power and must endure temperature extremes and abusive handling.</div>
+                <div class="options">
+                    <button onclick="checkAnswer(this, true, '✔️ Correct! NiCd batteries tolerate extreme environments, abusive cycles, and deliver high power—well-suited for tough tools.', 'feedback8')">Nickel-Cadmium (NiCd)</button>
+                    <button onclick="checkAnswer(this, false, '❌ LTO – Excellent performance and life, but too expensive and less energy-dense for handheld tools.','feedback8')">Lithium Titanate (LTO)</button>
+                    <button onclick="checkAnswer(this, false, '❌ VRLA – Not designed for high-discharge bursts; best for steady, deep discharge.', 'feedback8')">VRLA Gel</button>
+                    <button onclick="checkAnswer(this, false, '❌ LCO – High energy density, but fragile and unstable in harsh industrial environments.', 'feedback8')">Lithium Cobalt Oxide (LCO)</button>
+                </div>
+            <div id="feedback8" class="feedback" role="alert"></div>
+    </section>
+</div>
+
+<div class="quiz-block">
+    <section>
+        <h4>Battery for a Start-Stop System in a Modern Car</h4>
+            <div class="question">You're designing the battery system for a compact passenger car equipped with a start-stop system (the engine turns 
+            off at red lights and restarts automatically). The battery must deliver frequent high bursts of current, recharge quickly, and withstand
+            constant cycling in varying traffic conditions.</div>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, '❌ Flooded Lead-Acid – Inexpensive but not suitable for frequent cycling or quick recharging.','feedback9')">Flooded Lead-Acid</button>
+                    <button onclick="checkAnswer(this, false, '❌ LCO – High energy density but too fragile and expensive for automotive SLI applications.', 'feedback9')"> Lithium Cobalt Oxide (LCO)</button>
+                    <button onclick="checkAnswer(this, true, '✔️ Correct! AGM batteries are specifically designed for automotive applications with start-stop technology. They handle frequent charge/discharge cycles, provide high current output, and are more durable than flooded lead-acid batteries under these conditions.', 'feedback9')">Absorbent Glass Mat (AGM)</button>
+                    <button onclick="checkAnswer(this, false, '❌ NiMH – Used in hybrid vehicles but not ideal for 12V start-stop systems in conventional cars.', 'feedback9')">Nickel-Metal Hydride (NiMH)</button>
+                </div>
+            <div id="feedback9" class="feedback" role="alert"></div>
+    </section>
+</div>
+
+<div class="quiz-block">
+    <section>
+        <h4>Emergency Power Supply for a Remote Medical Clinic</h4>
+            <div class="question">You're selecting a battery system for an off-grid medical clinic in a developing region. It must support essential 
+            medical equipment during outages, endure deep discharges, be easy to maintain, and offer good performance over time with limited 
+            technical supervision.</div>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, ' ❌ Flooded Lead-Acid – Works but requires frequent maintenance and proper ventilation, which may not be feasible in a remote clinic.', 'feedback10')">Flooded Lead-Acid</button>
+                    <button onclick="checkAnswer(this, false, ' ❌ NMC – High performance, but complex and expensive; may require BMS and cooling systems not available in remote locations.', 'feedback10')"> Lithium Nickel Manganese Cobalt (NMC)</button>
+                    <button onclick="checkAnswer(this, false, '❌ NiMH – Safer than NiCd, but not ideal for deep cycling and stationary backup applications compared to VRLA Gel.', 'feedback10')">Nickel-Metal Hydride (NiMH)</button>
+                    <button onclick="checkAnswer(this, true, '✔️ Correct! VRLA Gel batteries are sealed, maintenance-free, and well-suited for deep discharges—ideal for critical systems in remote areas with minimal upkeep.', 'feedback10')">VRLA Gel</button>
+                </div>
+            <div id="feedback10" class="feedback" role="alert"></div>
+    </section>
+</div>
+
+    <div id="score" class="feedback" role="status" aria-live="polite" style="display: none; text-align: center; font-size: 1.2rem; margin: 2rem 0;"></div>
+
+    <div style="text-align: center;">
+      <button id="tryAgain" style="display:none; margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.9rem;"> Try Again</button>
+    </div>
+
+  
+</div>
+
+  <!-- Footer -->
+  <footer>
+    <p>This project has been financed with the support of the European Commission. This publication reflects only the views of the author and the Commission cannot be held responsible for any use which may be made of the information contained herein.</p>
+    <img src="EU-Logo.png" alt="Erasmus Logo" />
+  </footer>
+</div>
+
+<script>
+  let score = 0;
+  let currentQuestion = 0;
+
+  const questions = document.querySelectorAll('.quiz-block');
+  const scoreBox = document.getElementById('score');
+  const tryAgainButton = document.getElementById('tryAgain');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  function showQuestion(index) {
+    questions.forEach((q, i) => {
+      q.style.display = i === index ? 'block' : 'none';
+    });
+  }
+
+  function checkAnswer(button, isCorrect, message, feedbackId) {
+    const parent = button.parentElement;
+    [...parent.children].forEach(btn => btn.disabled = true);
+    button.classList.add('selected');
+
+    const feedback = document.getElementById(feedbackId);
+    feedback.innerHTML = message;
+    feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong');
+
+    if (isCorrect) score++;
+
+    setTimeout(() => {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        showQuestion(currentQuestion);
+      } else {
+        scoreBox.textContent = `Your Score: ${score}/${questions.length}`;
+        scoreBox.style.display = 'block';
+        tryAgainButton.style.display = 'inline-block';
+      }
+    }, 1500);
+  }
+
+  tryAgainButton.addEventListener('click', () => {
+    score = 0;
+    currentQuestion = 0;
+    scoreBox.style.display = 'none';
+    tryAgainButton.style.display = 'none';
+
+    // Reset buttons and feedback
+    document.querySelectorAll('.options button').forEach(btn => {
+      btn.disabled = false;
+      btn.classList.remove('selected');
+    });
+
+    document.querySelectorAll('.feedback').forEach(fb => {
+      fb.textContent = '';
+      fb.className = 'feedback';
+    });
+
+    showQuestion(currentQuestion);
+  });
+
+  menuToggle.addEventListener('click', () => {  
+    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+    navLinks.classList.toggle('active');
+  });
+
+  // Initialize quiz
+  showQuestion(currentQuestion);
+</script>
+
+
+</body>
+</html>
+
+
+

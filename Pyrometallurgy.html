@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔋BTRexpert </title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5faff;
+      color: #333;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      width: 100%;
+    }
+
+    /* Banner */
+    .banner {
+      background-color: #eaeff6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      flex-wrap: wrap;
+    }
+
+    .left-logo, .right-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1 1 20%;
+    }
+
+    .left-logo img {
+      height: 180px;
+    }
+
+    .left-logo h3 {
+      font-size: 0.8rem;
+      color: #4d4d00;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .right-logo img {
+      height: 80px;
+    }
+
+    .banner-text {
+      flex: 1 1 60%;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .banner-text h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner-text h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    /* Section Styling */
+    section {
+      padding: 2rem 1rem;
+    }
+
+    section h2 {
+      text-align: center;
+      color: #004080;
+      margin-bottom: 2rem;
+    }
+
+    .section-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .image-container {
+      flex: 1 1 40%;
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    .image-container img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s ease;
+    }
+
+    .image-container img:hover {
+      transform: scale(1.05);
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 0.4rem;
+      font-size: 0.9rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .image-container:hover .caption {
+      opacity: 1;
+    }
+
+    .text {
+      flex: 1 1 55%;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .text h3 {
+      color: #004080;
+      margin-top: 1.5rem;
+    }
+
+    .text ul, .text ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .text li {
+      margin-bottom: 0.75rem;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .fade-in.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #li-ion {
+      min-height: 100vh; /* Ensures the section takes up full viewport height */
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10000;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #e3ebf9;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    footer img {
+      height: 80px;
+      margin-top: 0.5rem;
+    }
+
+   /* Initial navbar style */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #004080;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #004080;
+  font-weight: 500;
+  padding: 0.5rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #005fa3;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: none;
+  flex-direction: column;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-menu li a {
+  padding: 0.75rem 1rem;
+  color: #004080;
+  background: #cce7ff;
+  width: 100%;
+  display: block;
+}
+
+.dropdown-menu li a:hover {
+  background: #f0f8ff;
+  color: #005fa3;
+}
+
+/* Hamburger Menu (Hidden on desktop) */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.menu-toggle .bar {
+  width: 30px;
+  height: 4px;
+  background-color: #004080;
+  border-radius: 2px;
+}
+
+    @media (max-width: 768px) {
+      .banner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .left-logo img, .right-logo img {
+        height: 70px;
+      }
+
+      .section-content {
+        flex-direction: column;
+      }
+
+      .image-container, .text {
+        flex: 1 1 100%;
+      }
+            .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    padding-left: 0;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Adjust dropdown for mobile */
+  .dropdown-menu {
+    position: static;
+    display: none;
+    background-color: #fff;
+  }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-logo">🔋 BTRexpert</div>
+  <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="dropdown">
+      <a href="index.html#explorer"> Battery Type Explorer ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="Recycling Technology.html#lead-acid">Lead-acid</a></li>
+        <li><a href="Recycling Technology.html#li-ion">Lithium-ion</a></li>
+        <li><a href="Recycling Technology.html#ni-mh">Ni-based</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="index.html#other">Other Types of Batteries ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="other_types_of_batteries.html#other">Other Batteries</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="index.html#recycling">Recycling Technology ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="Pyrometallurgy.html#pyrometallurgy">Pyrometallurgy</a></li>
+        <li><a href="Pyrometallurgy.html#hydrometallurgy">Hydrometallurgy</a></li>
+        <li><a href="Pyrometallurgy.html#Mechanical Pre-Treatment">Mechanical Pre-Treatment</a></li>
+        <li><a href="Pyrometallurgy.html#combined">Combined Methos</a></li>
+        <li><a href="Pyrometallurgy.html#electrometallurgy">Electrometallurgy Process</a></li>
+      </ul>
+    </li>
+    <li><a href="trainer.html#trainer">Trainer</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <!-- Banner -->
+  <section class="banner">
+    <div class="left-logo">
+      <img src="logo_1.png" alt="Left Logo" />
+      <h3>2024-1-PL01-KA220-HED-000249112</h3>
+    </div>
+    <div class="banner-text">
+      <h1>BTRexpert</h1>
+      <h2>Advanced Higher Education for Battery Lifecycle and Sustainability Consortium</h2>
+    </div>
+    <div class="right-logo">
+      <img src="EU-Logo.png" alt="Erasmus+" />
+    </div>
+  </section>
+
+  <!-- Pyrometallurgy Section -->
+  <section id="pyrometallurgy">
+    <h2>Pyrometallurgy</h2>
+    <div class="section-content">
+      <div class="image-container">
+        <img src="pyrometallurgy.png" alt="Pyrometallurgy Process" id="mainImage" />
+        <div class="caption">Click to enlarge</div>
+      </div>
+      <div class="text">
+        <p>
+          Battery recycling is essential for resource conservation and environmental protection. Among various recycling techniques, 
+          pyrometallurgy stands out for its ability to treat complex and contaminated waste streams. Traditionally dominant in the 
+          recycling of LABs, pyrometallurgical methods are now being explored for Ni-MH and Li-ion batteries due to increasing volumes of 
+          end-of-life batteries and the high value of metals like cobalt, nickel, and lithium.
+        </p>
+
+        <h3>Process Steps</h3>
+        <p>Pyrometallurgy involves the use of high temperatures (typically 1000–1600°C) to decompose battery materials, recover 
+          valuable metals, and separate impurities. The general process includes the following steps:</p>
+        <ol>
+          <li><strong>Pre-treatment:</strong> are discharged to avoid short-circuiting and fire hazards. Components are dismantled 
+            manually or mechanically. Electrolytes are removed via neutralization or evaporation. For Li-ion and Ni-MH, thermal 
+            pre-treatment is often used to remove binders and organics.</li>
+          <li><strong>Smelting or Reduction:</strong> Processed battery materials are fed into a high-temperature furnace such as a blast furnace, 
+            rotary kiln, or electric arc furnace. Reductants like carbon or coke convert metal oxides to their elemental forms. Fluxes
+             such as silica, soda ash, and lime are added to form slag and promote metal separation.</li>
+          <li><strong>Phase Separation:</strong> The furnace separates the molten content into distinct phases:</li>
+            <ul>
+              <li><strong>Metal Phase:</strong> Contains valuable metals (e.g., Pb, Ni, Co).</li>
+              <li><strong>Slag Phase:</strong> Contains less recoverable materials like Li, Al, Mn, and REEs.</li>
+              <li><strong>Gas Phase:</strong> Includes volatile organics and oxides (e.g., CO₂, SO₂).</li>
+            </ul>
+          <li><strong>Refining:</strong>The recovered metal alloys undergo refining to improve purity. Lead alloys are desulfurized
+            and demetallized. Ni-Co alloys may undergo hydrometallurgical post-treatment for separation.</li>
+          <li><strong>Gas Handling:</strong>Emissions are treated with filters, scrubbers, or baghouses to capture particulates and 
+            acid gases. Waste heat recovery systems are used to improve energy efficiency.</li>
+        </ol>
+
+        <h3>Applications</h3>
+        <ul>
+          <li><strong>Lead-Acid Batteries (LABs):</strong> LAB recycling involves smelting lead compounds (PbSO₄, PbO, PbO₂) at ~1000–1200°C. Soda ash acts 
+            as a flux and reductant. Iron or coke is added to assist reduction. The process efficiently recovers lead with yields over 
+            95%, but generates SO₂, necessitating flue gas desulfurization. Slag from LABs typically contains minimal reusable metal.</li>
+          <li><strong>Nickel-Metal Hydride (Ni-MH) Batteries: </strong> Ni-MH batteries are shredded and subjected to controlled thermal 
+            decomposition to reduce complex hydrides and organics. Smelting recovers Ni and Co in alloy form, while 
+            REEs like La, Ce, and Nd migrate to the slag. Aryani et al. (2024) demonstrated that using waste glass as a flux enhances slag 
+            fluidity and promotes better metal-slag separation. Pyrometallurgical efficiency can exceed 80% for Ni and Co.</li>
+          <li><strong>Lithium-Ion Batteries (Li-ion):</strong> Li-ion batteries are complex and contain valuable metals like Co, Ni, Mn, and 
+            less recoverable elements like Li and Al. High-temperature arc smelting focuses on Co and Ni recovery, forming metal-rich
+            alloys. Lithium migrates to the slag, requiring subsequent hydrometallurgical leaching. Advanced processes, such as reductive 
+            atmosphere control and flux engineering, improve yield but are energy-intensive. Integration with slag leaching is often 
+            necessary to recover Li and Mn.</li>
+        </ul>
+
+        <h3>Environmental Aspects</h3>
+        <ul>
+          <li><strong>Process Efficiency and Recovery</strong> Pyrometallurgy ensures high recovery rates for Pb, Ni, and Co (85–98%) but 
+            struggles with Li and REEs due to their affinity for slag. Reaction kinetics depend on furnace temperature, reductant reactivity,
+            and residence time. Optimization of slag composition and furnace atmosphere is crucial for maximizing metal separation.</li>
+          <li><strong>Environmental Impacts </strong>Environmental concerns include CO₂ and SO₂ emissions, toxic dioxins from organics, and 
+            heavy metal vapors. Gas scrubbing, activated carbon filters, and condensation systems are employed to mitigate emissions. 
+            Pyrometallurgical processes are energy-intensive; however, coupling with energy recovery (e.g., waste heat boilers) can reduce 
+            the net environmental footprint.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hydrometallurgy Section -->
+  <section id="hydrometallurgy">
+    <h2>Hydrometallurgy</h2>
+    <div class="section-content">
+      <div class="image-container">
+        <img src="hydrometallurgy.png" alt="Hydrometallurgy Process" id="hydroImage" />
+        <div class="caption">Click to enlarge</div>
+      </div>
+      <div class="text">
+        <p>
+          The rapid expansion of the battery industry, particularly in electric mobility and portable electronics, 
+          has created an urgent demand for efficient, sustainable recycling methods. Hydrometallurgy offers a promising 
+          solution due to its high selectivity, energy efficiency, and ability to recover a broad range of critical and 
+          strategic metals. In contrast to high-temperature pyrometallurgical routes, hydrometallurgy operates at moderate 
+          temperatures (typically < 100°C ) and enables the recovery of lithium, cobalt, nickel, manganese, and rare earth 
+          elements with minimal environmental impact.
+        </p>
+
+        <h3>Process Steps</h3>
+        <ol>
+          <li><strong>Pre-treatment:</strong> Batteries are dismantled, and components are sorted. In Li-ion batteries, cathode materials 
+            are removed from aluminum foil via mechanical or thermal treatment. Ni-MH and LAB pastes are sometimes neutralized before 
+            leaching.</li>
+          <li><strong>Leaching:</strong> The metal-bearing material is treated with aqueous leaching agents (e.g., sulfuric acid, 
+            hydrochloric acid, nitric acid, or organic acids) to dissolve target metals. In some processes, oxidative agents like H₂O₂ or 
+            NaClO₃ are added to facilitate metal solubilization:</li>
+            <ul>
+              <li>LiCoO₂ + 2H⁺ → Li⁺ + Co²⁺ + H₂O</li>
+              <li>PbSO₄ + HNO₃ → Pb(NO₃)₂ + H₂SO₄</li>
+            </ul>
+          <li><strong>Solid-Liquid Separation:</strong> he leachate is separated from undissolved residues (e.g., graphite, plastics, silica) 
+            using filtration or centrifugation.</li>
+          <li><strong>Purification and Separation:</strong>
+            <ul>
+              <li>Solvent extraction isolates metals based on their differing affinities for organic solvents.</li>
+              <li>Ion exchange and selective precipitation are used to remove impurities or concentrate metals.</li>
+              <li>Cementation (metal replacement) may also be used for selective recovery.</li>
+            </ul></li>
+          <li><strong>Recovery:</strong>
+            <ul>
+              <li>Electrowinning is applied to recover high-purity metals like cobalt and nickel.</li>
+              <li>Crystallization or precipitation recovers lithium as lithium carbonate or phosphate.</li>
+            </ul></li>
+          <li><strong>Effluent Treatment: </strong>Spent solutions are treated to neutralize acidity and 
+            remove residual metal ions before disposal or recycling.</li>
+        </ol>
+
+        <h3>Applications</h3>
+        <ul>
+          <li><strong>Lead-Acid Batteries (LABs):</strong> Hydrometallurgical recycling of LABs focuses on converting lead sulfate (PbSO₄)
+             in the paste into lead oxide or lead carbonate via chemical leaching. </li>
+          <li><strong> Nickel-Metal Hydride (Ni-MH) Batteries:</strong> Ni-MH batteries contain nickel, cobalt, and rare earths. 
+            Hydrometallurgy offers high selectivity for recovering these metals. Leaching is often done with sulfuric or hydrochloric acid 
+            in the presence of oxidants.</li>
+          <li><strong>Lithium-Ion Batteries (Li-ion):</strong> Hydrometallurgy is most widely applied in Li-ion battery recycling. Leaching 
+            systems vary based on cathode chemistry:
+            <ul>
+              <li>Acidic systems (H₂SO₄ + H₂O₂) for NMC and LCO materials.</li>
+              <li>Organic systems (citric acid, oxalic acid) for more environmentally friendly operations.</li>
+              <li>Deep eutectic solvents (DESs) are also under development.</li>
+            </ul></li>
+        </ul>
+
+        <h3>Environmental Aspects</h3>
+        <ul>
+          <li><strong>electivity and Efficiency:</strong>Hydrometallurgy allows precise recovery of target metals at high purity (>98%) and lower energy 
+            input. However, the process generates liquid effluents containing dissolved organics, acid residues, and impurities, requiring 
+            effective wastewater treatment.</li>
+          <li><strong>Environmental Impact: </strong>Compared to pyrometallurgy, hydrometallurgical processes have a lower carbon footprint and no hazardous 
+            air emissions. The challenges lie in the consumption of chemicals, effluent management, and occasional generation of complex 
+            secondary wastes.</li>
+          <li><strong>Economic Viability:</strong>Though more selective, hydrometallurgy may require complex multi-step circuits and higher reagent costs. 
+            However, when integrated with mechanical pre-treatment and followed by circular reuse (e.g., regenerated cathode materials), 
+            the cost-performance ratio improves significantly.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mechanical Pre-Treatment -->
+  <section id="Mechanical Pre-Treatment">
+    <h2>Mechanical Pre-Treatment Process</h2>
+    <div class="section-content">
+      <div class="image-container">
+        <img src="treatment.png" alt="Mechanical Pre-Treatment Process" id="pre-treatmentImage" />
+        <div class="caption">Click to enlarge</div>
+      </div>
+      <div class="text">
+        <p>
+          As global battery consumption increases, efficient recycling processes are essential for recovering valuable and critical materials.
+          Mechanical pre-treatment provides the first stage in battery recycling, enabling safe handling, separation of components, and 
+          concentration of active materials for further processing. It reduces the load on chemical and thermal units, lowers environmental 
+          impact, and improves resource recovery rates.
+        </p>
+
+        <h3>Process Steps</h3>
+        <ol>
+          <li><strong>Discharging:</strong> Batteries are fully discharged to prevent fire or explosion hazards.</li>
+          <li><strong>Dismantling and Crushing: </strong> Manual or automated dismantling removes external casings and connectors. 
+            Shredders, hammer mills, or cutting machines reduce battery cells into smaller fragments.</li>
+          <li><strong>Solid-Liquid Separation:</strong> he leachate is separated from undissolved residues (e.g., graphite, plastics, silica) 
+            using filtration or centrifugation.</li>
+          <li><strong>Separation:</strong>
+            <ul>
+              <li>Magnetic separation removes ferrous components (steel, nickel).</li>
+              <li>Air classification and cyclone separation remove lighter plastics and fine particles.</li>
+              <li>Sieving and density-based separation (e.g., water or fluidized beds) separate current collectors (Al, Cu) from active material powders.</li>
+            </ul></li>
+          <li><strong>Fine Material Collection:</strong>Cathode/anode powders containing Co, Ni, Mn, Li, or REEs are collected for subsequent 
+            hydrometallurgical or thermal treatment.</li>
+        </ol>
+
+        <h3>Applications</h3>
+        <ul>
+          <li><strong>Lead-Acid Batteries (LABs):</strong> are commonly opened using mechanical saws and crushers. Lead grids and paste are 
+            separated from plastic cases. Paste is then washed, dried, and sometimes pelletized. Polypropylene is recovered and reused. 
+            Automated systems improve throughput and safety.</li>
+          <li><strong> Nickel-Metal Hydride (Ni-MH) Batteries:</strong> Ni-MH batteries are mechanically opened and crushed. Magnetic 
+            separation isolates nickel and steel. Air classification and sieving concentrate hydride alloys (LaNi₅-type) and active rare 
+            earth elements. Proper mechanical sorting improves REE recovery in downstream steps.</li>
+          <li><strong>Lithium-Ion Batteries (Li-ion):</strong> Li-ion cells are shredded under inert or cryogenic conditions to avoid fire. 
+            Fine black mass containing cathode materials (LiCoO₂, NMC, LFP) is separated from aluminum and copper foils. Studies show 
+            mechanical pre-treatment can recover >90% of metallic foil and active material prior to chemical extraction.</li>
+        </ul>
+
+        <h3>Environmental Aspects</h3>
+        <ul>
+          <li>Mechanical pre-treatment significantly reduces chemical reagent demand and leachate volumes.</li>
+          <li>It facilitates safer handling of hazardous electrolytes and reactive components.</li>
+          <li>Energy consumption is lower than thermal processes but can vary with shredding and separation technologies.</li>
+        </ul>
+
+      <h3>Integration with Chemical Processes</h3>
+      <p>Mechanical methods act as front-end units for both hydrometallurgy and pyrometallurgy. Proper particle sizing and separation enhance
+        leaching kinetics, reduce slag volumes, and increase overall recovery yields.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Combined methods Section -->
+  <section id="combined">
+    <h2>Combined Methods</h2>
+    <div class="section-content">
+      <div class="image-container">
+        <img src="combined.png" alt="Combined Methods" id="combinedImage" />
+        <div class="caption">Click to enlarge</div>
+      </div>
+      <div class="text">
+        <p>Standalone battery recycling methods—whether pyrometallurgical or hydrometallurgical—offer advantages and limitations based on 
+          battery chemistry, material value, and scale. While pyrometallurgy efficiently handles mixed chemistries and offers process 
+          simplicity, it has low lithium recovery and higher emissions. Hydrometallurgy provides superior selectivity and material purity 
+          but requires clean, pre-sorted input. Mechanical pre-treatment alone cannot achieve material recovery but 
+          plays a vital role in reducing complexity and enhancing process efficiency.</p>
+        <p>To overcome the limitations of individual technologies, combined methods have been developed. These hybrid systems leverage 
+          the robustness of thermal treatment, the precision of aqueous chemistry, and the selectivity of mechanical fractionation, 
+          creating closed-loop or semi-closed-loop processes with significantly higher yield and lower environmental impact.</p>
+
+        <h3>Process Steps</h3>
+        <ol>
+          <li><strong>Mechanical Pre-Treatment:</strong> Shredding, magnetic separation, and classification remove casings and isolate 
+            black mass.</li>
+          <li><strong>Pyrometallurgical Treatment:</strong> Organic matter and plastics are thermally decomposed; metal alloys are collected, 
+            and slag is produced.</li>
+          <li><strong>Hydrometallurgical Leaching:</strong> Black mass or slag is subjected to acid leaching (e.g., H₂SO₄ + H₂O₂), followed 
+            by separation of Co, Ni, Mn, and Li using solvent extraction or precipitation.</li>
+          <li><strong>Refinement:</strong>Further purification of recovered metals or cathode precursor synthesis.</li>
+        </ol>
+
+        <h3>Applications</h3>
+        <ul>
+          <li><strong>Lead-Acid Batteries (LABs):</strong> While LABs are widely recycled via pyrometallurgy, hybrid methods are emerging to 
+            improve lead purity and reduce SO₂ emissions. Mechanical separation isolates lead paste, which is then chemically treated using 
+            alkali or acid leaching. Some methods directly convert PbSO₄ to PbO using soda ash smelting followed by hydrometallurgical 
+            refinement. </li>
+          <li><strong>Nickel-Metal Hydride (Ni-MH) Batteries: </strong> After mechanical separation of Ni-containing steel, the 
+            rare-earth-rich black mass is leached using acidic or alkaline hydrometallurgical systems. When needed, thermal pre-treatment 
+            (roasting) enhances leaching kinetics and reduces REE hydroxide passivation. Solvent extraction isolates Ce, La, Nd, and Pr, 
+            alongside Ni and Co. </li>
+          <li><strong>Lithium-Ion Batteries (Li-ion):</strong> Combined methods are especially effective for Li-ion chemistries like NMC 
+            and NCA. Pyrometallurgy recovers Co, Ni, and Cu as an alloy, but Li remains in slag. Hydrometallurgical treatment of the slag 
+            (or black mass) then extracts Li as lithium carbonate or lithium phosphate</li>
+        </ul>
+
+        <h3>Environmental Aspects</h3>
+        <ul>
+          <li><strong>Efficiency:</strong> Hybrid systems boost total recovery rates (often >95% for valuable metals) and reduce chemical 
+            reagent consumption by narrowing feed compositions.</li>
+          <li><strong>Selectivity: </strong>Mechanical pre-treatment isolates metallics and active powders; hydrometallurgy then recovers 
+            pure salts or cathode precursors.</li>
+          <li><strong>Emission Control:</strong>Hazardous gas generation during pyrometallurgy is minimized by using it only when 
+            necessary.</li>
+          <li><strong>Energy Optimization:</strong>Direct leaching after mechanical steps reduces the need for full thermal treatment, saving
+            energy.</li>
+        </ul>
+      
+        <h3>Limitations and Challenges</h3>
+        <ul>
+          <li>Limitations and Challenges</li>
+          <li>Requires careful process control and feedstock consistency.</li>
+          <li>Slag from pyrometallurgy may still require landfilling or additional treatment.</li>
+          <li>    Pre-sorting and battery chemistry identification remain barriers for automation.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Electrometallurgy process -->
+  <section id="electrometallurgy">
+    <h2>Electrometallurgy Process</h2>
+    <div class="section-content">
+      <div class="image-container">
+        <img src="electrometallurgy.png" alt="electrometallurgy" id="electrometallurgyImage" />
+        <div class="caption">Click to enlarge</div>
+      </div>
+      <div class="text">
+        <p>Electrometallurgical processes use electricity to drive oxidation-reduction reactions that selectively deposit metals onto 
+          electrodes. The most common methods—electrowinning (metal deposition from leach solutions) and electrorefining (purification of 
+          impure metals)—are integral in primary and secondary metallurgy. In battery recycling, they are typically applied after leaching 
+          in hydrometallurgical flowsheets to extract high-purity cobalt, nickel, zinc, and lead. This technique supports cleaner production
+          cycles, reduces chemical waste, and enhances the circular economy for critical materials.</p>
+
+        <h3>Electrometallurgical Techniques</h3>
+        <ol>
+          <li><strong>Electrowinning</strong> 
+          <p>In electrowinning, metal ions in a leach solution are reduced at the cathode, forming solid metal, while a complementary 
+            oxidation reaction occurs at the anode. The process depends on:</p></li>
+          <ul>
+            <li>Electrolyte composition (e.g., sulfate or chloride-based)</li>
+            <li>pH and temperature</li>
+            <li>Current density and electrode materials</li>
+          </ul>
+          <li><strong>Electrorefining</strong> 
+            <p>Electrorefining involves the dissolution of an impure metal anode and its redeposition as pure metal on the cathode. This 
+              method is common in lead recycling and copper purification. Impurities either remain in the electrolyte or form anode slimes.
+            </p></li>
+        </ol>
+
+        <h3>Applications</h3>
+        <ul>
+          <li><strong>Lead-Acid Batteries (LABs):</strong> Lead recovered from mechanical or smelting stages can be purified through 
+            electrorefining to produce battery-grade lead with low antimony, tin, and arsenic levels. </li>
+          <li><strong>Nickel-Metal Hydride (Ni-MH) Batteries: </strong> After leaching, Ni²⁺ can be recovered using electrowinning from 
+            ammonia or sulfate electrolytes. Cobalt and rare earths may also be separated electrochemically depending on potential windows. </li>
+          <li><strong>Lithium-Ion Batteries (Li-ion):</strong> Nickel and cobalt salts from Li-ion black mass leachate can be selectively
+             recovered using pulse electrowinning techniques. Electrochemical recovery of lithium is rare but possible using modified 
+             membranes or hybrid electrochemical-precipitation systems.</li>
+        </ul>
+
+        <h3>Environmental Aspects</h3>
+        <ul>
+          <li><strong>High Selectivity and Purity:</strong> Enables recovery of battery-grade metals without extensive chemical purification.</li>
+          <li><strong>Mild Conditions:</strong>Lower energy requirements compared to pyrometallurgy; avoids combustion emissions.</li>
+          <li><strong>Modular Design:</strong>Can be integrated into small or decentralized recycling units.</li>
+          <li><strong>Reduced Reagent Use: </strong>Lower chemical consumption and waste generation.</li>
+        </ul>
+      
+        <h3>Challenges and Considerations</h3>
+        <ul>
+          <li><strong>Electrolyte Management: </strong> careful monitoring of metal concentration and conductivity.</li>
+          <li><strong>Fouling: </strong> residues or impurities can reduce electrode life.</li>
+          <li> <strong> Costs: </strong> cells require controlled infrastructure and monitoring.</li>
+          <li><strong>Universally Applicable: </strong> earths and lithium are challenging to recover electrochemically without complex pre-treatment.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer>
+    <p>This project has been financed with the support of the European Commission. This publication reflects only the views of the author 
+      and the Commission cannot be held responsible for any use which may be made of the information contained herein.</p>
+    <img src="EU-Logo.png" alt="Erasmus Logo" />
+  </footer>
+
+</div>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox">
+  <span class="close-btn" id="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Enlarged Image">
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Lightbox Logic
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.getElementById('lightbox-close');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  const images = [
+    document.getElementById('mainImage'),
+    document.getElementById('hydroImage'),
+    document.getElementById('pre-treatmentImage'),
+    document.getElementById('combinedImage'),
+    document.getElementById('electrometallurgyImage')
+  ];
+
+  images.forEach(img => {
+    if (img) {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.style.display = 'flex';
+      });
+    }
+  });
+
+  // Close lightbox on background or close button click
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target === closeBtn) {
+      lightbox.style.display = 'none';
+    }
+  });
+
+  // Close lightbox with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      lightbox.style.display = 'none';
+    }
+  });
+
+   menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      navLinks.classList.toggle('active');
+    });
+  });
+</script>
+
+
+</body>
+</html>
+

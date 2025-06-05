@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔋BTRexpert </title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5faff;
+      color: #333;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      width: 100%;
+    }
+
+    /* Banner */
+    .banner {
+      background-color: #eaeff6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      flex-wrap: wrap;
+    }
+
+    .left-logo, .right-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1 1 20%;
+    }
+
+    .left-logo img {
+      height: 180px;
+    }
+
+    .left-logo h3 {
+      font-size: 0.8rem;
+      color: #4d4d00;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .right-logo img {
+      height: 80px;
+    }
+
+    .banner-text {
+      flex: 1 1 60%;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .banner-text h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner-text h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    /* Section Styling */
+    section {
+      padding: 2rem 1rem;
+    }
+
+    section h2 {
+      text-align: center;
+      color: #004080;
+      margin-bottom: 2rem;
+    }
+
+    .section-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .image-container {
+      flex: 1 1 40%;
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    .image-container img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s ease;
+    }
+
+    .image-container img:hover {
+      transform: scale(1.05);
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 0.4rem;
+      font-size: 0.9rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .image-container:hover .caption {
+      opacity: 1;
+    }
+
+    .text {
+      flex: 1 1 55%;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .text h3 {
+      color: #004080;
+      margin-top: 1.5rem;
+    }
+
+    .text h4 {
+      color: #004080;
+      margin-top: 1.2rem;
+    }
+
+    .text ul, .text ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .text li {
+      margin-bottom: 0.75rem;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .fade-in.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #li-ion {
+      min-height: 100vh; /* Ensures the section takes up full viewport height */
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10000;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #e3ebf9;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    footer img {
+      height: 80px;
+      margin-top: 0.5rem;
+    }
+
+/* Initial navbar style */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #004080;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #004080;
+  font-weight: 500;
+  padding: 0.5rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #005fa3;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: none;
+  flex-direction: column;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-menu li a {
+  padding: 0.75rem 1rem;
+  color: #004080;
+  background: #cce7ff;
+  width: 100%;
+  display: block;
+}
+
+.dropdown-menu li a:hover {
+  background: #f0f8ff;
+  color: #005fa3;
+}
+
+/* Hamburger Menu (Hidden on desktop) */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.menu-toggle .bar {
+  width: 30px;
+  height: 4px;
+  background-color: #004080;
+  border-radius: 2px;
+}
+
+    @media (max-width: 768px) {
+      .banner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .left-logo img, .right-logo img {
+        height: 70px;
+      }
+
+      .section-content {
+        flex-direction: column;
+      }
+
+      .image-container, .text {
+        flex: 1 1 100%;
+      }
+            .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    padding-left: 0;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Adjust dropdown for mobile */
+  .dropdown-menu {
+    position: static;
+    display: none;
+    background-color: #fff;
+  }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-logo">🔋 BTRexpert</div>
+  <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="dropdown">
+      <a href="index.html#explorer"> Battery Type Explorer ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="Recycling Technology.html#lead-acid">Lead-acid</a></li>
+        <li><a href="Recycling Technology.html#li-ion">Lithium-ion</a></li>
+        <li><a href="Recycling Technology.html#ni-mh">Ni-based</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="index.html#other">Other Types of Batteries ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="other_types_of_batteries.html#other">Other Batteries</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="index.html#recycling">Recycling Technology ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="Pyrometallurgy.html#pyrometallurgy">Pyrometallurgy</a></li>
+        <li><a href="Pyrometallurgy.html#hydrometallurgy">Hydrometallurgy</a></li>
+        <li><a href="Pyrometallurgy.html#Mechanical Pre-Treatment">Mechanical Pre-Treatment</a></li>
+        <li><a href="Pyrometallurgy.html#combined">Combined Methos</a></li>
+        <li><a href="Pyrometallurgy.html#electrometallurgy">Electrometallurgy Process</a></li>
+      </ul>
+    </li>
+    <li><a href="trainer.html#trainer">Trainer</a></li>
+  </ul>
+</nav>
+  
+<div class="container">
+
+  <!-- Banner -->
+  <section class="banner">
+    <div class="left-logo">
+      <img src="logo_1.png" alt="Left Logo" />
+      <h3>2024-1-PL01-KA220-HED-000249112</h3>
+    </div>
+    <div class="banner-text">
+      <h1>BTRexpert</h1>
+      <h2>Advanced Higher Education for Battery Lifecycle and Sustainability Consortium</h2>
+    </div>
+    <div class="right-logo">
+      <img src="EU-Logo.png" alt="Erasmus+" />
+    </div>
+  </section>
+
+<!-- Lead acid batteries -->  
+<section id="lead-acid">
+  <h2>Lead-acid Batteries</h2>
+  <div class="section-content">
+    <div class="image-container">
+      <img src="lead acid .png" alt="Lead-acid batteries" id="leadacidImage" />
+      <div class="caption">Click to enlarge</div>
+    </div>
+    <div class="text">
+      <p>Lead-acid batteries (LABs), are the oldest type of rechargeable battery still widely used today. 
+        Known for their low cost, robustness, and high surge current capabilities, LABs are a critical component in energy storage, automotive
+        applications, and backup power systems. With growing attention to environmental sustainability, the recycling and clean recovery of 
+        LABs have become equally important.</p>
+      <h3>Chemistry of Lead-Acid Batteries</h3>
+      <ol>
+        <li>
+          <strong>Electrochemical Reactions</strong>
+          <p>Lead-acid batteries operate based on the reversible electrochemical reaction between lead (Pb), lead dioxide (PbO₂), and sulfuric acid (H₂SO₄):</p>
+          <ul>
+            <li><strong>Discharge Reaction:</strong> PbO₂​ + Pb + 2H₂SO₄​ → 2PbSO₄​ + 2H₂O</li>
+            <li><strong>Charge Reaction:</strong> 2PbSO₄​ + H₂O → PbO₂ + Pb + 2H₂SO₄​</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Components</strong>
+          <ul>
+            <li><strong>Positive Electrode (cathode during discharge): </strong> Lead dioxide (PbO₂)</li>
+            <li><strong>Negative Electrode (anode during discharge):</strong> Sponge lead (Pb)</li>
+            <li><strong>Electrolyte:</strong> Dilute sulfuric acid (H₂SO₄)</li>
+            <li><strong>Separator: </strong> Microporous material preventing short circuit</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h3>Types of Lead-Acid Batteries</h3>
+      <ol>
+        <h4>Flooded (Vented) Lead-Acid Batteries</h4>
+          <ul>
+            <li>Traditional design with liquid electrolyte</li>
+            <li>Requires periodic maintenance and water refilling</li>
+          </ul>
+          <strong>Subtypes:</strong>
+          <ul>
+            <li><strong>Starting, Lighting, and Ignition (SLI) Batteries: </strong> High-current bursts for engine starting, 
+              supports vehicle electrical systems, used in cars, motorcycles, and trucks</li>
+          </ul>
+          <ul>
+            <li><strong>Industrial Batteries: </strong> Stationary Batteries used in UPS, telecom, emergency lighting, substations, 
+            and Traction Batteries Used in forklifts, pallet trucks, electric buses</li>
+          </ul>
+          <h4>Valve-Regulated Lead-Acid (VRLA) Batteries</h4>
+          <ul>
+            <li>Sealed, maintenance-free, and spill-proof</li>
+            <li>Electrolyte immobilized (absorbed or gelled)</li>
+            <li>Pressure relief valves ensure safe operation</li>
+          </ul>
+          <strong>Subtypes:</strong>
+          <ul>
+            <li><strong>Absorbed Glass Mat (AGM):</strong> Used in start-stop systems, UPS, motorcycles</li>
+            <li><strong>Gel Cell:</strong> Suitable for solar systems, wheelchairs, marine use</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h3>Structural Design and Construction</h3>
+      <ol>
+        <ul>
+          <li><strong>Plates: </strong> Lead alloy grids with active material</li>
+          <li><strong>Separators: </strong>  Prevent short circuits</li>
+          <li><strong>Container:</strong> Usually polypropylene</li>
+          <li><strong>VRLA Valves:</strong>Control internal pressure and gas release</li>
+        </ul>
+      </ol>
+
+      <h3>Cycling Technology and Performance</h3>
+      <ol>
+        <li>
+          <strong>Charge and Discharge Cycles</strong>
+          <ul>
+            <li>Standard cycle life ranges from 500–1000 cycles</li>
+            <li>VRLA batteries often have better deep discharge performance</li>
+            <li>Charge efficiency: ~70–85% depending on type and depth of discharge (DoD)</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Sulfation</strong>
+          <ul>
+            <li>Reversible formation of PbSO₄ crystals during discharge</li>
+            <li>Chronic sulfation reduces capacity—mitigated by periodic equalization or carbon additives</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Recycling Enhancements:</strong>
+          <ul>
+            <li>Advanced designs incorporate additives like barium sulfate or carbon</li>
+            <li>Use of refined secondary lead improves cycling consistency</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h3>Applications</h3>
+      <ol>
+        <li><strong>Automotive:</strong> Starter batteries (SLI), Electric vehicles (limited by weight and energy density)</li>
+        <li>
+          <strong>Energy Storage:</strong> Solar PV and off-grid systems, Uninterruptible Power Supplies (UPS)</li>
+        <li>
+          <strong>Industrial:</strong> Forklifts, telecom towers, and emergency systems</li>
+      </ol>
+
+      <h3>Recycling and Environmental Aspects</h3>
+      <p>Lead-acid batteries are over 95% recyclable, making them one of the most recycled consumer products globally.</p>
+      <ol>
+        <li>
+          <strong>Standard Recycling Process</strong>
+          <ul>
+            <li>Breaking and Separation</li>
+            <li>Desulfurization and Paste Processing</li>
+            <li>Smelting and Refining</li>
+            <li>Lead Recovery</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Emerging Recycling Technologies</strong>
+          <ul>
+            <li><strong>Hydrometallurgy:</strong> Uses leaching and precipitation</li>
+            <li><strong>Electrohydrometallurgy:</strong> Electrolysis in alkaline/acidic solutions</li>
+            <li><strong>Vacuum Reduction:</strong> Pb-Sb alloy separation</li>
+            <li><strong>Electrowinning:</strong> Direct recovery from leachate</li>
+            <li><strong>Alkaline Conversion:</strong> For cleaner lead oxide production</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Lithium-ion Batteries -->  
+<section id="li-ion">
+  <h2>Lithium-ion Batteries</h2>
+  <div class="section-content">
+    <div class="image-container">
+      <img src="li-ion.png" alt="Lithium-ion batteries" id="li-ionImage" />
+      <div class="caption">Click to enlarge</div>
+    </div>
+    <div class="text">
+      <p>Lithium-ion batteries (LIBs) have revolutionized modern electronics and transportation since their commercialization in the 1990s. 
+        Powering everything from smartphones to electric vehicles (EVs), they offer high energy density, long cycle life, and low self-discharge. 
+        As demand for clean energy grows, LIBs play a central role in electrification and grid stabilization. However, sustainability, supply 
+        chain pressure, and end-of-life (EoL) challenges now drive innovation in recycling and materials recovery.</p>
+      <h3>Chemistry of Lithium-Ion Batteries</h3>
+
+      <ol>
+        <li>
+          <strong>Electrochemical Reactions</strong>
+
+          <p>LIBs operate by intercalating lithium ions between a cathode and an anode through an electrolyte. The core reaction during 
+            discharge is:</p>
+            <ul>
+              <li><strong>Cathode (e.g., LiCoO₂):</strong> LiCoO<sub>2</sub> → Li<sub>1−x</sub>CoO<sub>2</sub> + xLi<sup>+</sup> + xe<sup>−</sup></li>
+              <li><strong>Anode (graphite):</strong> xLi<sup>+</sup> + xe<sup>−</sup> + C<sub>6</sub> → Li<sub>x</sub>C<sub>6</sub></li>
+            </ul>
+
+          <p>During charging, the reaction reverses.</p>
+        </li>
+        <li>
+          <strong>Components</strong>
+          <ul>
+            <li><strong>Cathode:</strong> LiCoO₂, NMC, LFP, LMO, or NCA</li>
+            <li><strong>Anode:</strong> Graphite, silicon-carbon composites</li>
+            <li><strong>Electrolyte:</strong> LiPF₆ in organic solvents</li>
+            <li><strong>Microporous polymer films</strong></li>
+            <li><strong>Current Collectors:</strong> Copper (anode), aluminum (cathode)</li>
+          </ul>
+        </li>
+      </ol>
+
+  <h3 style="margin-top: 20px;">Types of Lithium-Ion Batteries</h3>
+        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; max-width: 800px; width: 100%; text-align: left;">
+
+          <thead style="background-color: #f0f0f0;">
+            <tr>
+              <th>Type</th>
+              <th>Cathode</th>
+              <th>Characteristics</th>
+              <th>Applications</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Lithium Cobalt Oxide-LCO</strong></td>
+              <td>LiCoO<sub>2</sub></td>
+              <td>High energy density</td>
+              <td>Smartphones, laptops, cameras</td>
+            </tr>
+            <tr>
+              <td><strong>Lithium Nickel Manganese Cobalt Oxide-NMC</strong></td>
+              <td>LiNiMnCoO<sub>2</sub></td>
+              <td>Balanced performance (Energy density, power, cost, safety)</td>
+              <td>Electric and hybrid vehicles</td>
+            </tr>
+            <tr>
+              <td><strong>Lithium Nickel Cobalt Aluminum Oxide-NCA</strong></td>
+              <td>LiNiCoAlO<sub>2</sub></td>
+              <td>High energy, long cycle life, high specific energy</td>
+              <td>High-performance EVs (e.g., Tesla)</td>
+            </tr>
+            <tr>
+              <td><strong> Lithium Titanate-LTO </strong></td>
+              <td>Li<sub>4</sub>Ti<sub>3</sub>O<sub>12</sub></td>
+              <td>Fast charging, long cycle life, superior safety</td>
+              <td>Electric buses, military equipment, grid storage systems</td>
+            </tr>
+            <tr>
+              <td><strong>Lithium Iron Phosphate-LFP</strong></td>
+              <td>LiFePO<sub>4</sub></td>
+              <td>Safe, long life, excellent thermal stability</td>
+              <td>Electric buses, Stationary energy storage,Industrial EVs</td>
+              </tr>
+          </tbody>
+        </table>
+      
+      <h3>Battery Structure</h3>
+      <ol>
+        <li>
+          <strong>Cell Designs</strong>
+          <ul>
+            <li>Cylindrical </li>
+            <li>Prismatic</li>
+            <li>Pouch cell</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Electrode Configuration</strong>
+          <ul>
+            <li>Coated foil electrodes wound or stacked</li>
+            <li>Electrolyte-soaked separator sandwiched in between</li>
+            <li>Encased in sealed housing with safety vents</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h3>Cycling Technology</h3>
+      <ol>
+        <li>
+          <strong>Lifecycle and Degradation</strong>
+          <ul>
+            <li>LIBs typically endure 500–2000+ cycles</li>
+            <li>Aging due to: SEI growth, lithium plating, electrode cracking,electrolyte decomposition</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Battery Management Systems (BMS)</strong>
+          <ul>
+            <li>Monitor voltage, temperature, and SOC</li>
+            <li>Prevent overcharge/discharge</li>
+            <li>Enable thermal safety</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Second-Life Applications</strong>
+          <ul>
+            <li>Reuse in grid storage, telecom, or off-grid systems</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h3>Applications of Lithium-Ion Batteries</h3>
+      <ol>
+        <li>
+          <strong>Consumer Electronics: </strong> Phones, laptops, wearables, focus on compact, high energy density</li>
+        <li>
+          <strong>Electric Vehicles: </strong> Passenger cars, buses, e-bikes, growth driven by climate policies and falling costs</li>
+        <li>
+          <strong>Energy Storage Systems (ESS): </strong> Utility-scale storage, solar backup, load balancing, LFP and NMC chemistries dominate here</li>
+        <li>
+          <strong>Industrial & Aerospace: </strong> Power tools, medical devices, drones, satellites</li>
+      </ol>
+
+      <h3>Recycling Technologies</h3>
+      <ol>
+        <li>
+          <strong>Recycling Drivers</strong>
+            <ul>
+              <li>Environmental hazards (Co, Ni leaching)</li>
+              <li>Resource scarcity</li>
+              <li>Regulatory pressure</li>
+            </ul>
+        </li>
+        <li>
+          <strong>Conventional Recycling Processes</strong>
+           <ul>
+              <li><strong>Pyrometallurgy </strong></li>
+              <li><strong>Hydrometallurgy </strong></li>
+              <li><strong>Direct Recycling </strong></li>
+            </ul>
+        </li>
+        <li>
+          <strong>Emerging Techniques</strong>
+            <ul>
+              <li><strong>Bioleaching:</strong> using bacteria like Acidithiobacillus ferrooxidans</li>
+              <li><strong>Deep Eutectic Solvents (DES):</strong> for green extraction</li>
+              <li><strong>Ultrasonic Separation & Cleaning</strong></li>
+            </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Ni-MH batteries -->  
+<section id="ni-mh">
+  <h2>Ni-Based Batteries</h2>
+  <div class="section-content">
+    <div class="image-container">
+      <img src="ni-mh.png" alt="Ni-MH batteries" id="nimhImage" />
+      <div class="caption">Click to enlarge</div>
+    </div>
+    <div class="text">
+      <p>Nickel-based rechargeable batteries have been central to energy storage for several decades. Among them, Nickel-Cadmium (NiCd) and 
+        Nickel-Metal Hydride (NiMH) batteries stand out for their robust performance, wide temperature range, and proven reliability. With the 
+        growing push toward sustainable energy and electrification, these batteries remain relevant — especially in hybrid vehicles, power tools,
+         and backup systems.</p>
+        <p>However, the toxicity of cadmium and the increasing demand for rare earth elements have intensified interest in efficient recycling 
+          and material recovery, particularly for spent NiMH batteries</p>
+
+      <h3>Types of Nickel-Based Batteries</h3>
+      <ol>
+        <h4>Nickel-Cadmium (NiCd)</h4>
+          <ul>
+            <li>High discharge rates</li>
+            <li>Excellent performance in extreme temperatures</li>
+            <li>Strong mechanical durability</li>
+            <li>Tolerance to abusive charging</li>
+            <li>Environmental toxicity due to cadmium</li>
+          </ul>
+        <h4>Nickel-Metal Hydride (NiMH)</h4>
+          <ul>
+            <li>Designed as an environmentally safer alternative to NiCd</li>
+            <li>Higher energy density</li>
+            <li>No cadmium = safer for the environment</li>
+            <li>Better specific energy and capacity retention</li>
+            <li>Popular in hybrid electric vehicles (HEVs)</li>
+          </ul>
+      </ol>
+
+      <h3>Chemistry of Ni-Based Batteries</h3>
+      <ol>
+        <li>
+          <h4>NiCd Battery Chemistry</h4>
+          <p>NiCd batteries operate through redox reactions between nickel(III) oxide hydroxide and cadmium:</p>
+            <ul>
+              <li>Cd(OH)<sub>2</sub> ​+ 2Ni(OH)<sub>2</sub> ​→ Cd + 2NiO(OH) + 2H<sub>2</sub>​O</li>
+              <li>Cd + 2NiO(OH) + 2H<sub>2</sub>​O → Cd(OH)<sub>2</sub> + 2Ni(OH)<sub>2</sub>​</li>
+            </ul>
+            <h4>NiMH Battery Chemistry</h4>
+            <p>NiMH batteries use a hydride-forming metal alloy (AB₅ or AB₂ types) as the anode and nickel oxyhydroxide (NiOOH) as the 
+              cathode:</p>
+            <ul>
+              <li><strong>Anode (Negative):</strong><br> MH ↔ M + H<sup>+</sup> + e<sup>-</sup></li>
+              <li><strong>Cathode (Positive):</strong><br> Ni(OH)<sub>2</sub> ​+ OH<sup>-</sup> ↔ NiO(OH) + H<sub>2</sub>​O + e<sup>-</sup></li>
+              <li><strong>Overall:</strong><br>MH + NiO(OH) ↔ M + Ni(OH)<sub>2</sub>​</li>
+            </ul>
+        </li>
+      </ol>
+
+      <h3>Structure and Cell Design</h3>
+      <ol>
+        <li>
+          <strong>Electrode Components</strong>
+          <ul>
+            <li><strong>Anode: </strong> Hydrogen-absorbing alloy (e.g., LaNi₅, ZrTiNi)</li>
+            <li><strong>Cathode:</strong> Nickel hydroxide paste on nickel foam</li>
+            <li><strong>Electrolyte:</strong> Aqueous KOH solution </li>
+            <li><strong>Separator:</strong> Microporous polymer to prevent short-circuits</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Cell Formats</strong>
+          <ul>
+            <li>Cylindrical, prismatic, and button cells</li>
+            <li>Usually sealed, vented for pressure control</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h3>Cycling Technology</h3> 
+      <ol>
+        <li>
+          <strong>Cycling Technology</strong>
+            <ul>
+              <li>NiCd: ~1000 cycles</li>
+              <li>NiMH: ~500–1000 cycles</li>
+              <li>Full and trickle charge modes available</li>
+              <li>Fast charging via delta-V control</li>
+            </ul>
+        </li>
+      </ol>
+
+      <h3>Applications</h3>
+      <ol>
+        <li>
+          <strong>Consumer Electronics:</strong> Cordless phones, cameras, toys (historically NiCd, now NiMH)</li>
+        <li>
+          <strong> Power Tools:</strong> Durable, high discharge rate required</li>
+        <li>
+          <strong>Automotive:</strong> NiMH batteries are still used in HEVs</li>
+        <li>
+          <strong>Aerospace & Military:</strong> NiCd batteries valued for reliability under extreme conditions</li>
+      </ol>
+
+      <h3>Recycling Technologies</h3>
+      <p>Recycling is vital due to: the value of Ni, Co, La, Ce, Nd, Pr, and the environmental concerns (especially Cd).</p>
+      <ol>
+        <li>
+          <strong>Mechanical Pre-Treatment</strong>
+          <ul>
+            <li>Discharging and dismantling</li>
+            <li>Grinding and sieving to isolate active material</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Pyrometallurgy</strong>
+          <ul>
+            <li>High-temperature smelting for Co and Ni recovery</li>
+            <li>Loss of REEs and hydrogen storage alloys</li> 
+          </ul>
+        </li> 
+        <li>
+          <strong>Hydrometallurgy</strong>
+            <ul>
+              <li>Acid/alkaline leaching of metals</li>
+              <li>Solvent extraction, precipitation, electro-winning</li>
+            </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+  <!-- Footer -->
+  <footer>
+    <p>This project has been financed with the support of the European Commission. This publication reflects only the views of the author 
+      and the Commission cannot be held responsible for any use which may be made of the information contained herein.</p>
+    <img src="EU-Logo.png" alt="Erasmus Logo" />
+  </footer>
+
+</div>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox">
+  <span class="close-btn" id="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Enlarged Image">
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Scroll Reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Lightbox Logic
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.getElementById('lightbox-close');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    const images = [
+      document.getElementById('leadacidImage'),
+      document.getElementById('li-ionImage'),
+      document.getElementById('nimhImage')
+    ];
+
+    images.forEach(img => {
+      if (img) {
+        img.addEventListener('click', () => {
+          lightboxImg.src = img.src;
+          lightbox.style.display = 'flex';
+        });
+      }
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target === closeBtn) {
+        lightbox.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        lightbox.style.display = 'none';
+      }
+    });
+
+      menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      navLinks.classList.toggle('active');
+    });
+  });
+</script>
+
+</body>
+</html>

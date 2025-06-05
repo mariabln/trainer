@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BTRexpert | Recycling Technology </title>
+  <link rel="icon" href="logo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5faff;
+      color: #333;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      width: 100%;
+    }
+
+    /* Banner */
+    .banner {
+      background-color: #eaeff6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      flex-wrap: wrap;
+    }
+
+    .left-logo, .right-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1 1 20%;
+    }
+
+    .left-logo img {
+      height: 180px;
+    }
+
+    .left-logo h3 {
+      font-size: 0.8rem;
+      color: rgb(120, 118, 4);
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .right-logo img {
+      height: 80px;
+    }
+
+    .banner-text {
+      flex: 1 1 60%;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .banner-text h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner-text h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    /* Section Styling */
+    section {
+      padding: 4rem 2rem;
+    }
+
+    section h2 {
+      text-align: center;
+      color: #004080;
+      margin-bottom: 2rem;
+    }
+
+    .section-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .image-container {
+      flex: 1 1 40%;
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    .image-container img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s ease;
+    }
+
+    .image-container img:hover {
+      transform: scale(1.05);
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 0.4rem;
+      font-size: 0.9rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .image-container:hover .caption {
+      opacity: 1;
+    }
+
+    .text {
+      flex: 1 1 55%;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .text h3 {
+      color: #004080;
+      margin-top: 1.5rem;
+    }
+
+    .text ul, .text ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .text li {
+      margin-bottom: 0.75rem;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .fade-in.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #li-ion {
+      min-height: 100vh; /* Ensures the section takes up full viewport height */
+    }
+    
+    /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10000;
+    }
+
+
+    /* Footer */
+    footer {
+      background-color: #e3ebf9;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    footer img {
+      height: 80px;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .banner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .left-logo img, .right-logo img {
+        height: 70px;
+      }
+
+      .section-content {
+        flex-direction: column;
+      }
+
+      .image-container, .text {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Banner -->
+  <section class="banner">
+    <div class="left-logo">
+      <img src="logo_1.png" alt="Left Logo" />
+      <h3>2024-1-PL01-KA220-HED-000249112</h3>
+    </div>
+    <div class="banner-text">
+      <h1>BTRexpert</h1>
+      <h2>Advanced Higher Education for Battery Lifecycle and Sustainability Consortium</h2>
+    </div>
+    <div class="right-logo">
+      <img src="EU-Logo.png" alt="Erasmus+" />
+    </div>
+  </section>
+
+<!-- Lithium-ion Batteries -->  
+  <section id="lead-acid">
+  <h2>1. Introduction</h2>
+  <p>Invented in 1859 by Gaston Planté. Oldest type of rechargeable battery still widely used.</p>
+  <ul>
+    <li>Low cost</li>
+    <li>Robustness</li>
+    <li>High surge current capabilities</li>
+  </ul>
+  <h3>Key Applications:</h3>
+  <ul>
+    <li>Energy storage</li>
+    <li>Automotive</li>
+    <li>Backup power systems</li>
+  </ul>
+  <h3>Environmental Focus:</h3>
+  <ul>
+    <li>High recyclability (&gt;95%)</li>
+    <li>Importance of clean recovery processes</li>
+  </ul>
+
+  <h2>2. Chemistry of Lead-Acid Batteries</h2>
+  <h3>2.1 Electrochemical Reactions</h3>
+  <p><strong>Discharge:</strong> PbO₂ + Pb + 2H₂SO₄ → 2PbSO₄ + 2H₂O</p>
+  <p><strong>Charge:</strong> 2PbSO₄ + 2H₂O → PbO₂ + Pb + 2H₂SO₄</p>
+
+  <h3>2.2 Components</h3>
+  <ul>
+    <li>Positive Electrode: Lead dioxide (PbO₂)</li>
+    <li>Negative Electrode: Sponge lead (Pb)</li>
+    <li>Electrolyte: Dilute sulfuric acid (H₂SO₄)</li>
+    <li>Separator: Microporous material to prevent short circuits</li>
+  </ul>
+
+  <h2>3. Types of Lead-Acid Batteries</h2>
+  <h3>3.1 Flooded (Vented) Lead-Acid</h3>
+  <p>Traditional "wet cell" design with liquid electrolyte. Requires maintenance, ventilation, and regular checks.</p>
+  <h4>Subtypes:</h4>
+  <ul>
+    <li><strong>SLI Batteries:</strong> High-current bursts, engine starting (cars, motorcycles, trucks)</li>
+    <li><strong>Industrial Batteries:</strong>
+      <ul>
+        <li>Stationary: UPS, telecom, lighting</li>
+        <li>Traction: Forklifts, buses, pallet trucks</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>3.2 Valve-Regulated Lead-Acid (VRLA)</h3>
+  <p>Sealed, maintenance-free, spill-proof with pressure relief valves. Safer and flexible in orientation.</p>
+  <ul>
+    <li><strong>AGM:</strong> Absorbed electrolyte, fast charging, low resistance</li>
+    <li><strong>Gel Cell:</strong> Silica-gelled electrolyte, deep-cycle, sensitive to overcharging</li>
+  </ul>
+
+  <h3>3.3 Enhanced Types</h3>
+  <ul>
+    <li>Advanced AGM: Longer life, better charge acceptance</li>
+    <li>Carbon-Enhanced LABs: Better cycling, sulfation resistance</li>
+  </ul>
+
+  <h2>4. Structural Design and Construction</h2>
+  <ul>
+    <li>Plates: Lead alloy grids</li>
+    <li>Separators: Prevent short circuits</li>
+    <li>Container: Polypropylene</li>
+    <li>VRLA Valves: Pressure control</li>
+    <li>Use of recycled lead plates (if processed well)</li>
+  </ul>
+
+  <h2>5. Cycling Technology and Performance</h2>
+  <h3>5.1 Charge/Discharge Cycles</h3>
+  <ul>
+    <li>Cycle life: 500–1000</li>
+    <li>Charge efficiency: 70–85%</li>
+    <li>VRLA: Better for deep discharge</li>
+  </ul>
+
+  <h3>5.2 Sulfation</h3>
+  <p>PbSO₄ crystals reduce capacity over time. Reversible early on.</p>
+  <h4>Mitigation:</h4>
+  <ul>
+    <li>Equalization charging</li>
+    <li>Carbon additives</li>
+  </ul>
+
+  <h3>5.3 Cycling Enhancements</h3>
+  <ul>
+    <li>Additives: Barium sulfate, carbon</li>
+    <li>Refined secondary lead for performance</li>
+  </ul>
+
+  <h2>6. Applications</h2>
+  <ul>
+    <li><strong>Automotive:</strong> SLI batteries, limited EV use</li>
+    <li><strong>Energy Storage:</strong> Solar PV, UPS</li>
+    <li><strong>Industrial:</strong> Forklifts, telecom towers</li>
+  </ul>
+
+  <h2>7. Recycling and Environmental Aspects</h2>
+  <h3>7.1 Standard Recycling Process</h3>
+  <ul>
+    <li>Breaking & separation</li>
+    <li>Desulfurization</li>
+    <li>Smelting & refining</li>
+    <li>Lead recovery</li>
+  </ul>
+
+  <h3>7.2 Emerging Technologies</h3>
+  <ul>
+    <li>Hydrometallurgy</li>
+    <li>Electrohydrometallurgy</li>
+    <li>Vacuum Reduction</li>
+    <li>Electrowinning</li>
+    <li>Alkaline Conversion</li>
+  </ul>
+
+  <h3>7.3 Environmental Risks</h3>
+  <p>Informal recycling → soil & water pollution, especially in developing regions.</p>
+
+  <h2>8. Policy, Sustainability, and Market Trends</h2>
+  <h3>8.1 Regulatory Efforts</h3>
+  <ul>
+    <li>China: LAB collection</li>
+    <li>EU: Battery Directive 2006/66/EC</li>
+  </ul>
+
+  <h3>8.2 Circular Economy</h3>
+  <ul>
+    <li>Reused for gamma-ray shielding, Zn-ion batteries</li>
+  </ul>
+
+  <h3>8.3 Market Forecasts</h3>
+  <ul>
+    <li>Global LAB demand rising</li>
+    <li>Secondary lead production increasing</li>
+  </ul>
+
+  <h2>9. Challenges and Future Prospects</h2>
+  <ul>
+    <li>Toxicity & emissions → cleaner processes</li>
+    <li>Performance limits: ~35 Wh/kg vs. Li-ion &gt;150 Wh/kg</li>
+    <li>Innovation: Hybrid systems, smart BMS, green recycling</li>
+  </ul>
+
+  <h2>10. Conclusion</h2>
+  <p>LABs remain critical for reliability-focused applications in developing regions, backup power, and sustainable reuse systems.</p>
+
+
+</section>
+
+  <!-- Footer -->
+  <footer>
+    <p>This project has been financed with the support of the European Commission. This publication reflects only the views of the author 
+      and the Commission cannot be held responsible for any use which may be made of the information contained herein.</p>
+    <img src="EU-Logo.png" alt="Erasmus Logo" />
+  </footer>
+
+</div>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox">
+  <span class="close-btn" id="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Enlarged Image">
+</div>
+
+
+<script>
+  // Scroll Reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Lightbox Logic
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.getElementById('lightbox-close');
+
+  const images = [
+    document.getElementById('leadacidImage'),
+    document.getElementById('li-ionImage')
+  ];
+
+  images.forEach(img => {
+    if (img) {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.style.display = 'flex';
+      });
+    }
+  });
+
+  // Close lightbox on background or close button click
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target === closeBtn) {
+      lightbox.style.display = 'none';
+    }
+  });
+
+  // Close lightbox with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      lightbox.style.display = 'none';
+    }
+  });
+</script>
+
+
+</body>
+</html>
+

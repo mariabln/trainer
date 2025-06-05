@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔋BTRexpert </title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5faff;
+      color: #333;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      width: 100%;
+    }
+
+    /* Banner */
+    .banner {
+      background-color: #eaeff6;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .left-logo, .right-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1 1 20%;
+    }
+
+    .left-logo img {
+      height: 180px;
+    }
+
+    .left-logo h3 {
+      font-size: 0.8rem;
+      color: #4d4d00;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .right-logo img {
+      height: 80px;
+    }
+
+    .banner-text {
+      flex: 1 1 60%;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .banner-text h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner-text h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    /* Sections */
+    section {
+      padding: 2rem 1rem;
+      width: 100%;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #004080;
+    }
+
+    .section-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .image-container {
+      flex: 1 1 40%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      width: 400px;
+      max-height: 300px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: block;
+      margin: 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s ease;
+    }
+
+    .image-container img:hover {
+      transform: scale(1.05);
+    }
+
+     .caption {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 0.4rem;
+      font-size: 0.9rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .text h3 {
+      color: #004080;
+      margin-top: 1.5rem;
+    }
+
+    .text {
+      flex: 1 1 55%;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-container:hover .caption {
+      opacity: 1;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .fade-in.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+   /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10000;
+    }
+
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .flip-card {
+      background: transparent;
+      width: 260px;
+      height: 200px;
+      perspective: 1000px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .flip-card:hover {
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .flip-card-front {
+      background-color: #fff;
+      color: #004080;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .flip-card-back {
+      background-color: #e0f0ff;
+      color: #333;
+      transform: rotateY(180deg);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      background-color: #e3ebf9;
+      color: black;
+      text-align: center;
+      padding: 2rem;
+      width: 100%;
+    }
+
+    footer img {
+      height: 80px;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Initial navbar style */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #004080;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #004080;
+  font-weight: 500;
+  padding: 0.5rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #005fa3;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: none;
+  flex-direction: column;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-menu li a {
+  padding: 0.75rem 1rem;
+  color: #004080;
+  background: #cce7ff;
+  width: 100%;
+  display: block;
+}
+
+.dropdown-menu li a:hover {
+  background: #f0f8ff;
+  color: #005fa3;
+}
+
+/* Hamburger Menu (Hidden on desktop) */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.menu-toggle .bar {
+  width: 30px;
+  height: 4px;
+  background-color: #004080;
+  border-radius: 2px;
+}
+
+    @media (max-width: 768px) {
+      .banner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .left-logo img, .right-logo img {
+        height: 70px;
+      }
+
+      .banner-text {
+        padding: 1rem 0;
+      }
+
+      .section-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .flip-card {
+        width: 90%;
+        height: 220px;
+      }
+
+      .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    padding-left: 0;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Adjust dropdown for mobile */
+  .dropdown-menu {
+    position: static;
+    display: none;
+    background-color: #fff;
+  }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+    }
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-logo">🔋 BTRexpert</div>
+  <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="dropdown">
+      <a href="index.html#explorer"> Battery Type Explorer ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="Recycling Technology.html#lead-acid">Lead-acid</a></li>
+        <li><a href="Recycling Technology.html#li-ion">Lithium-ion</a></li>
+        <li><a href="Recycling Technology.html#ni-mh">Ni-based</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="index.html#other">Other Types of Batteries ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="other_types_of_batteries.html#other">Other Batteries</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="index.html#recycling">Recycling Technology ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="Pyrometallurgy.html#pyrometallurgy">Pyrometallurgy</a></li>
+        <li><a href="Pyrometallurgy.html#hydrometallurgy">Hydrometallurgy</a></li>
+        <li><a href="Pyrometallurgy.html#Mechanical Pre-Treatment">Mechanical Pre-Treatment</a></li>
+        <li><a href="Pyrometallurgy.html#combined">Combined Methos</a></li>
+        <li><a href="Pyrometallurgy.html#electrometallurgy">Electrometallurgy Process</a></li>
+      </ul>
+    </li>
+    <li><a href="trainer.html#trainer">Trainer</a></li>
+  </ul>
+</nav>
+
+
+<div class="container">
+
+  <!-- Banner -->
+  <section class="banner">
+    <div class="left-logo">
+      <img src="logo_1.png" alt="Left Logo" />
+      <h3>2024-1-PL01-KA220-HED-000249112</h3>
+    </div>
+    <div class="banner-text">
+      <h1>BTRexpert</h1>
+      <h2>Advanced Higher Education for Battery Lifecycle and Sustainability Consortium</h2>
+    </div>
+    <div class="right-logo">
+      <img src="EU-Logo.png" alt="Erasmus+" />
+    </div>
+  </section>
+
+  <!-- Classification Section -->
+  <section id="classification">
+    <h2>Classification of Batteries</h2>
+    <div class="section-content">
+      <div class="image-container">
+        <img src="classification _2.png" alt="Battery Classification" id="mainImage" />
+        <div class="caption">Click to enlarge</div>
+      </div>
+      <div class="text">
+        <p>Batteries are a key technology in the transition toward more sustainable energy systems, supporting a wide range of applications 
+          such as consumer electronics, electric vehicles, and large-scale energy storage. To effectively understand, compare, and develop 
+          battery technologies, it is important to classify them based on certain criteria.</p>
+        <p>One common way to classify batteries is by their chemical structure, which refers to the materials used in the electrodes and 
+          electrolyte. Examples include lithium-ion, lead-acid, nickel-metal hydride, as well as emerging chemistries like solid-state 
+          and sodium-ion batteries. Another method of classification is based on application areas, since batteries are designed to 
+          meet the specific demands of different sectors, such as transportation, portable electronics, medical equipment, aerospace, or 
+          renewable energy systems.</p>
+        <p>Batteries can also be grouped by their structural characteristics, meaning their physical design and format. These include 
+          cylindrical, prismatic, pouch, and coin cells, each offering different advantages depending on the use case. Finally, batteries
+           are often classified according to their energy density, which is a measure of how much energy they can store relative to their 
+           weight or volume—an important factor for performance, especially in space-constrained or high-power applications.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explorer -->
+  <section id="explorer">
+    <h2>Battery Type Explorer</h2>
+    <div class="card-grid">
+
+      <a href="Recycling Technology.html#lead-acid" class="flip-card" data-category="Lead-acid">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="lead_acid_4.png" alt="Lead-acid" style="width: 260px; height: 200px; object-fit: cover; border-radius: 10px;" />
+        
+        </div>
+        <div class="flip-card-back">Lead-acid Batteries</div>
+      </div>
+    </a>
+    
+      <a href="Recycling Technology.html#li-ion" class="flip-card" data-category="Li-ion">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="li_ion_2.png" alt="li-ion" style="width: 260px; height: 200px; object-fit: cover; border-radius: 10px;" />
+        
+        </div>
+        <div class="flip-card-back">Lithium-ion Batteries</div>
+      </div>
+    </a>
+    
+    <a href="Recycling Technology.html#ni-mh" class="flip-card" data-category="Ni-MH">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="ni_based.png" alt="ni-MH" style="width: 260px; height: 200px; object-fit: cover; border-radius: 10px;" />
+        
+        </div>
+        <div class="flip-card-back">Ni-Based Batteries</div>
+      </div>
+    </a>
+     
+    </div>
+  </section>
+
+  <!-- Other Batteries -->
+  <section id="other">
+    <h2>Other types of Batteries</h2>
+      <div class="card-grid">
+
+        <a href="other_types_of_batteries.html#other" class="flip-card" data-category="Other types of Batteries">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="classification _2.png" alt="other types of batteries" style="width: 260px; height: 200px; object-fit: cover; border-radius: 10px;" />
+            </div>
+              <div class="flip-card-back">Other types of Batteries</div>
+          </div>
+        </a>
+      </div>
+  </section>
+
+<!-- Recycling Technology -->
+<section id="recycling">
+  <h2>Recycling Technology</h2>
+  <div class="card-grid">
+
+    <a href="Pyrometallurgy.html#pyrometallurgy" class="flip-card" data-category="Pyrometallurgy">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="pyrometallurgy_1.png" alt="Pyrometallurgy" style="width: 260px; height: 200px; object-fit: cover; border-radius: 10px;" />
+
+        </div>
+        <div class="flip-card-back">Pyrometallurgy</div>
+      </div>
+    </a>
+
+    <a href="Pyrometallurgy.html#hydrometallurgy" class="flip-card" data-category="Hydrometallurgy">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="hydrometallurgy_1.png" alt="Hydrometallurgy" style="width:260px; height:200px; object-fit:cover; border-radius:10px;">
+        </div>
+        <div class="flip-card-back">Hydrometallurgy</div>
+      </div>
+    </a>
+
+    <a href="Pyrometallurgy.html#Mechanical Pre-Treatment" class="flip-card" data-category="Mechanical Pre-treatment">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="mechanical_pre_treatment_1.png" alt="Mechanical Pre-treatment" style="width:260px; height:200px; object-fit:cover; border-radius:10px;">
+        </div>
+        <div class="flip-card-back">Mechanical Pre-treatment</div>
+      </div>
+    </a>
+
+    <a href="Pyrometallurgy.html#combined" class="flip-card" data-category="Combined methods">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="combined_1.png" alt="Combined Methods" style="width:260px; height:200px; object-fit:cover; border-radius:10px;">
+        </div>
+        <div class="flip-card-back">Combined Methods</div>
+      </div>
+    </a>
+
+    <a href="Pyrometallurgy.html#electrometallurgy" class="flip-card" data-category="Electrometallurgy">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="electrometallurgy_1.png" alt="Electrometallurgy" style="width:260px; height:200px; object-fit:cover; border-radius:10px;">
+        </div>
+        <div class="flip-card-back">Electrometallurgy</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+  <!-- Footer -->
+  <footer>
+    <p>This project has been financed with the support of the European Commission. This publication reflects only the views of the author and the Commission cannot be held responsible for any use which may be made of the information contained herein.</p>
+    <img src="EU-Logo.png" alt="Erasmus Logo" />
+  </footer>
+</div>
+
+<script>
+  function filterCards() {
+    const filter = document.getElementById('filter').value;
+    document.querySelectorAll('#explorer .flip-card').forEach(card => {
+      card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'block' : 'none';
+    });
+  }
+</script>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox">
+  <span class="close-btn" id="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Enlarged Image">
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  // Scroll Reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Lightbox Logic
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.getElementById('lightbox-close');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  const images = [
+    document.getElementById('mainImage')
+  ];
+
+  images.forEach(img => {
+    if (img) {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.style.display = 'flex';
+      });
+    }
+  });
+
+  // Close lightbox on background or close button click
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target === closeBtn) {
+      lightbox.style.display = 'none';
+    }
+  });
+
+  // Close lightbox with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      lightbox.style.display = 'none';
+    }
+  });
+     menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      navLinks.classList.toggle('active');
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
